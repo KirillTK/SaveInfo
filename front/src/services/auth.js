@@ -1,23 +1,24 @@
-import api from './api';
+import axios from 'axios';
+
 
 const basePath = '/api';
 
 class Auth {
   signIn(user){
-    return api.post(`${basePath}/login`, user);
+    return axios.post(`${basePath}/login`, user);
   }
 
   logIn(user) {
-    return api.post(`${basePath}/registration`, user);
+    return axios.post(`${basePath}/registration`, user);
   }
 
   logout(){
-    return api.get(`${basePath}/logout`);
+    return axios.get(`${basePath}/logout`);
   }
 
   getUser() {
-    return api.get(`${basePath}/user`);
+    return axios.get(`${basePath}/user`);
   }
 }
 
-export default Auth;
+export default new Auth();
