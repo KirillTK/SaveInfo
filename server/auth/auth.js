@@ -28,4 +28,9 @@ module.exports = function(app, passport) {
   app.get('/api/user', mustAuthenticated, (req, res) => {
     res.json(req.user);
   });
+
+  app.get('/api/logout', mustAuthenticated, (req, res) => {
+    req.logOut();
+    res.send({});
+  });
 };
