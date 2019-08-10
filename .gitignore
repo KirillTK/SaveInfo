@@ -2,6 +2,10 @@
 /node_modules
 /.pnp
 .pnp.js
+server/node_modules
+server/package-lock.json
+front/node_modules
+front/package-lock.json
 
 # testing
 /coverage
