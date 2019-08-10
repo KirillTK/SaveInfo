@@ -5,14 +5,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import App from './App';
+import rootSaga from './rootSaga';
+import { reducer } from './rootReducer';
 
 
 
 const sagaMiddleware = createSagaMiddleware();
 const composer = composeWithDevTools;
-const store = createStore(null, composer(applyMiddleware(sagaMiddleware)));
+const store = createStore(reducer, composer(applyMiddleware(sagaMiddleware)));
 
-// sagaMiddleware.run(watcherSaga);
+sagaMiddleware.run(rootSaga);
 
 
 ReactDOM.render(
