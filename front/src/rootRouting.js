@@ -1,32 +1,45 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import App from './App';
+import { compose } from 'redux';
+import withStyles from '@material-ui/core/styles/withStyles';
 import MainMenu from './components/main-menu';
 import Login from './auth/components/login';
 
+const styles = ({
+  mainContainer: {
+    marginTop: '30px',
+  },
+});
+
 
 const Root = (props) => {
-  const { user } = props;
-  console.log('user', user);
+  const { user, classes } = props;
 
   return (
-    <Router>
-      <MainMenu/>
-      <Switch>
-        <Route path="/" component={() => <Redirect to={user ? '/profile' : '/login'}/>}/>
-        <Route path="/login" component={Login}/>
-      </Switch>
-    </Router>
+    <div>
+      <header>
+        <MainMenu/>
+      </header>
+      <main className={classes.mainContainer}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={() => <Redirect to={user ? Login : Login}/>}/>
+            <Route path="/login" component={Login}/>
+          </Switch>
+        </Router>
+      </main>
+    </div>
   );
 };
 
-const mapStateToProps = state => {
-  console.log('state', state);
-  return {
-    user: state.auth.user,
-  };
-};
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
 
+const enhance = compose(
+  withStyles(styles),
+  connect(mapStateToProps),
+);
 
-export default connect(mapStateToProps)(Root);
+export default enhance(Root);

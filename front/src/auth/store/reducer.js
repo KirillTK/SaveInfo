@@ -7,7 +7,7 @@ const defaultState = {
 export const auth = (state = defaultState, action) => {
   switch (action.type) {
     case SET_USER: {
-      return state;
+      return {...state, user: action.payload};
     }
     default:
       return state;

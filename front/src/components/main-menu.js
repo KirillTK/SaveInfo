@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 const styles = ({
   bar: {
     backgroundColor: '#1976d2',
+    flexGrow: 1,
   },
 });
 
@@ -15,7 +16,7 @@ const MainMenu = (props) => {
   const { classes } = props;
 
   return (<div>
-    <AppBar className={classes.bar}>
+    <AppBar position={'sticky'} className={classes.bar}>
       <Toolbar>
         <Typography variant="h6" color="inherit">
           Save Info

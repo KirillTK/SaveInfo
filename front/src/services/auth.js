@@ -4,11 +4,11 @@ import axios from 'axios';
 const basePath = '/api';
 
 class Auth {
-  signIn(user){
+  logIn(user){
     return axios.post(`${basePath}/login`, user);
   }
 
-  logIn(user) {
+  SignUp(user) {
     return axios.post(`${basePath}/registration`, user);
   }
 

@@ -7,8 +7,15 @@ function* SIGN_UP_SAGA() {
 
 }
 
-function* SIGN_IN_SAGA() {
-
+function* SIGN_IN_SAGA({ payload }) {
+  console.log('props', payload);
+  try {
+    yield call(auth.logIn, payload);
+    const user = yield call(auth.getUser);
+    yield put(setUser(user.data));
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 
 function* SIGN_OUT_SAGA() {

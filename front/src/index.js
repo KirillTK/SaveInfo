@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import rootSaga from './rootSaga';
 import reducer from './rootReducer';
 import Root from './rootRouting';
+import './style.css';
 
 
 const sagaMiddleware = createSagaMiddleware();
