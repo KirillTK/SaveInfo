@@ -4,10 +4,9 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import App from './App';
 import rootSaga from './rootSaga';
 import { reducer } from './rootReducer';
-
+import Root from './rootRouting';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -17,7 +16,7 @@ const store = createStore(reducer, composer(applyMiddleware(sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
 
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App/>
-  </Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+  <Root/>
+</Provider>, document.getElementById('root'));
+

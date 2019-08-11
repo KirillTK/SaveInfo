@@ -20,7 +20,7 @@ function* GET_USER_SAGA() {
     const user = yield call(auth.getUser);
     yield put(setUser(user));
   } catch (error) {
-    console.log('error', error);
+    console.log('error', error.message);
   }
 
 }
