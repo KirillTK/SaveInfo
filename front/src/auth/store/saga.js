@@ -1,18 +1,18 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { GET_USER, LOGOUT, SIGN_IN, SIGN_UP } from './const';
 import auth from '../../services/auth';
-import { setUser } from './actions';
+import { getUser, setUser } from './actions';
+
 
 function* SIGN_UP_SAGA() {
 
 }
 
 function* SIGN_IN_SAGA({ payload }) {
-  console.log('props', payload);
   try {
     yield call(auth.logIn, payload);
-    const user = yield call(auth.getUser);
-    yield put(setUser(user.data));
+    yield put(push('/profile'));
   } catch (error) {
     console.log('error', error);
   }
@@ -25,7 +25,8 @@ function* SIGN_OUT_SAGA() {
 function* GET_USER_SAGA() {
   try {
     const user = yield call(auth.getUser);
-    yield put(setUser(user));
+    yield put(setUser(user.data));
+    console.log('here1');
   } catch (error) {
     console.log('error', error.message);
   }
