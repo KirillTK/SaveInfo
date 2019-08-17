@@ -10,7 +10,7 @@ const MainMenu = () => {
   const [isCollapsed, setCollapse] = useState(true);
   const user = useSelector(selectUser);
 
-  return (user ? (<Sider collapsible collapsed={isCollapsed} onCollapse={() => setCollapse(!isCollapsed)} >
+  return (user ? (<Sider collapsible collapsed={isCollapsed} onCollapse={() => setCollapse(!isCollapsed)} theme='light'>
     <div className="username"/>
     <Menu defaultSelectedKeys={['1']} mode="inline">
       <Menu.Item key="1">

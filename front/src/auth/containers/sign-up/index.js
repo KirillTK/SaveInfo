@@ -28,7 +28,7 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
 
-  const submitSignIn = (values) => dispatch(signUp(values));
+  const submitSignUp = (values) => dispatch(signUp(values));
 
   const renderForm = ({ handleSubmit, isValid }) => (
     <Form onSubmit={handleSubmit}>
@@ -58,7 +58,7 @@ const SignUp = () => {
       />
       <div className="submit-container">
         <button className="ant-btn ant-btn-primary" type="submit" disabled={!isValid} style={styles.submitBtn}>
-          Sign In
+          Sign Up
         </button>
       </div>
     </Form>
@@ -66,7 +66,7 @@ const SignUp = () => {
 
   return (
     <section style={styles.form}>
-      <Formik onSubmit={submitSignIn} render={renderForm} validationSchema={SignupSchema}/>
+      <Formik onSubmit={submitSignUp} render={renderForm} validationSchema={SignupSchema}/>
     </section>);
 };
 

@@ -16,6 +16,7 @@ function* GET_USER_SAGA() {
 function* SIGN_IN_SAGA({ payload }) {
   try {
     yield call(auth.logIn, payload);
+    yield* GET_USER_SAGA();
     yield put(navigate('/profile'));
   } catch (error) {
     console.log('error', error);
