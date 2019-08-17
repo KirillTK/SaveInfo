@@ -8,7 +8,7 @@ class Auth {
     return axios.post(`${basePath}/login`, user);
   }
 
-  SignUp(user) {
+  signUp(user) {
     return axios.post(`${basePath}/registration`, user);
   }
 

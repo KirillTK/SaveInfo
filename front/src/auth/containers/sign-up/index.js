@@ -3,6 +3,8 @@ import { Form, Icon } from 'antd';
 import { Field, Formik } from 'formik';
 import { SignupSchema } from '../../../utils/validation/schamas';
 import { AntInput } from '../../../utils/components/form-field';
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../actions';
 
 const styles = ({
   form: {
@@ -24,7 +26,9 @@ const styles = ({
 
 const SignUp = () => {
 
-  const submitSignIn = (values) => console.log({ values });
+  const dispatch = useDispatch();
+
+  const submitSignIn = (values) => dispatch(signUp(values));
 
   const renderForm = ({ handleSubmit, isValid }) => (
     <Form onSubmit={handleSubmit}>
