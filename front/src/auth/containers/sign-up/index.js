@@ -48,7 +48,7 @@ const SignUp = () => {
         component={AntInput}
         name="password2"
         type='password'
-        label="password"
+        label="Repeat password"
         prefix={<Icon type='lock' style={styles.icon}/>}
         hasFeedback
       />
