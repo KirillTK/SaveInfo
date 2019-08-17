@@ -1,31 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import MainMenu from './components/main-menu';
-import Login from './auth/components/login';
-
-const styles = ({
-  mainContainer: {
-    marginTop: '30px',
-  },
-});
+import Login from './auth';
+import Profile from './profile';
+import PrivateRoute from './utils/components/private-route';
+import PublicRoute from './utils/components/public-route'
 
 
-const Root = (props) => {
-  const { user, classes } = props;
+
+const Root = () => {
 
   return (
     <div>
       <header>
         <MainMenu/>
       </header>
-      <main className={classes.mainContainer}>
+      <main>
         <Router>
           <Switch>
-            <Route exact path="/" component={() => <Redirect to={user ? Login : Login}/>}/>
-            <Route path="/login" component={Login}/>
+            <PrivateRoute path="/profile" component={Profile}/>
+            <PublicRoute path="/login" component={Login}/>
           </Switch>
         </Router>
       </main>
@@ -33,13 +27,5 @@ const Root = (props) => {
   );
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.user,
-});
 
-const enhance = compose(
-  withStyles(styles),
-  connect(mapStateToProps),
-);
-
-export default enhance(Root);
+export default Root;
