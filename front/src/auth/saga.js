@@ -1,7 +1,7 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { GET_USER, LOGOUT, SIGN_IN, SIGN_UP } from './const';
-import auth from '../../services/auth';
+import auth from './services/auth';
 import { getUser, setUser } from './actions';
 
 
@@ -26,11 +26,9 @@ function* GET_USER_SAGA() {
   try {
     const user = yield call(auth.getUser);
     yield put(setUser(user.data));
-    console.log('here1');
   } catch (error) {
     console.log('error', error.message);
   }
-
 }
 
 export default function* authRootSaga() {

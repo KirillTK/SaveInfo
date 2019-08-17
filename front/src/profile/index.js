@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getUser } from './auth/store/actions';
+import { getUser } from '../auth/actions';
 
-const App = () => {
+
+const Profile = () => {
   const dispatch = useDispatch();
 
   useEffect(()=> {
@@ -10,8 +11,8 @@ const App = () => {
   },[dispatch])
 
   return (
-    <div className="App"/>
+    <div/>
   );
 };
 
-export default App;
+export default Profile;

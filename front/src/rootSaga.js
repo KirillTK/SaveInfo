@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import authRootSaga from './auth/store/saga';
+import authRootSaga from './auth/saga';
 
 
 
