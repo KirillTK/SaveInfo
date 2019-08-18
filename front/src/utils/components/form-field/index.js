@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 
+const { TextArea } = Input;
 const FormItem = Form.Item;
 
-const createAntField = AntComponent => ({ field, form, hasFeedback, label, selectOptions, submitCount, prefix, type, ...props }) => {
+const createAntField = AntComponent => ({ offValidationIcon = false, field, form, hasFeedback, label, selectOptions, submitCount, prefix, type, ...props }) => {
   const touched = form.touched[field.name];
   const submitted = submitCount > 0;
   const hasError = form.errors[field.name];
@@ -20,7 +21,7 @@ const createAntField = AntComponent => ({ field, form, hasFeedback, label, selec
           !!((hasFeedback && submitted) || (hasFeedback && touched))
         }
         help={submittedError || touchedError ? hasError : false}
-        validateStatus={submittedError || touchedError ? 'error' : 'success'}
+        validateStatus={offValidationIcon && (submittedError || touchedError ? 'error' : 'success')}
       >
         <AntComponent
           {...field}
@@ -37,3 +38,4 @@ const createAntField = AntComponent => ({ field, form, hasFeedback, label, selec
 };
 
 export const AntInput = createAntField(Input);
+export const AntTextArea = createAntField(TextArea);

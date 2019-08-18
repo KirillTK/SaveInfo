@@ -14,8 +14,8 @@ const MainMenu = () => {
     <div className="username"/>
     <Menu defaultSelectedKeys={['1']} mode="inline">
       <Menu.Item key="1">
-        <Icon type="user"/>
-        <span>User</span>
+        <Icon type="history"/>
+        <span>History</span>
       </Menu.Item>
       <Menu.Item key="2">
         <Icon type="pie-chart"/>
