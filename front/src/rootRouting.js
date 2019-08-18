@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
 import MainMenu from './components/main-menu';
 import Profile from './profile';
 import PrivateRoute from './utils/components/private-route';
@@ -19,9 +19,10 @@ const Root = () => {
       <Content>
         <Router>
           <Switch>
-            <PrivateRoute path="/profile" component={Profile}/>
-            <PublicRoute path="/login" component={SignIn}/>
-            <PublicRoute path="/registration" component={SignUp}/>
+            <PrivateRoute path='/profile' component={Profile}/>
+            <PublicRoute path='/login' component={SignIn}/>
+            <PublicRoute path='/registration' component={SignUp}/>
+            <Redirect exact from='/' to='login' />
           </Switch>
         </Router>
       </Content>
