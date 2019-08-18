@@ -1,0 +1,74 @@
+import React from 'react';
+import { Form, Icon } from 'antd';
+import { Field, Formik } from 'formik';
+import { SignupSchema } from '../../../utils/validation/schamas';
+import { AntInput } from '../../../utils/components/form-field';
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../actions';
+
+const styles = ({
+  form: {
+    boxShadow: '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',
+    padding: '30px',
+    margin: '50px auto',
+    maxWidth: '400px',
+    backgroundColor: 'white',
+  },
+  icon: {
+    color: 'rgba(0,0,0,.25)',
+  },
+  submitBtn: {
+    margin: '0 auto',
+    display: 'block',
+  },
+});
+
+
+const SignUp = () => {
+
+  const dispatch = useDispatch();
+
+  const submitSignUp = (values) => dispatch(signUp(values));
+
+  const renderForm = ({ handleSubmit, isValid }) => (
+    <Form onSubmit={handleSubmit}>
+      <Field
+        component={AntInput}
+        name="email"
+        type="email"
+        label="Email"
+        prefix={<Icon type='user' style={styles.icon}/>}
+        hasFeedback
+      />
+      <Field
+        component={AntInput}
+        name="password"
+        type='password'
+        label="password"
+        prefix={<Icon type='lock' style={styles.icon}/>}
+        hasFeedback
+      />
+      <Field
+        component={AntInput}
+        name="password2"
+        type='password'
+        label="Repeat password"
+        prefix={<Icon type='lock' style={styles.icon}/>}
+        hasFeedback
+      />
+      <div className="submit-container">
+        <button className="ant-btn ant-btn-primary" type="submit" disabled={!isValid} style={styles.submitBtn}>
+          Sign Up
+        </button>
+      </div>
+    </Form>
+  );
+
+  return (
+    <section style={styles.form}>
+      <Formik onSubmit={submitSignUp} render={renderForm} validationSchema={SignupSchema}/>
+    </section>);
+};
+
+
+export default SignUp;
