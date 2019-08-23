@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Field, Formik } from 'formik';
 import { Form, Icon } from 'antd';
-import { signIn, signUp } from '../../actions';
-import { SignInSchema } from '../../../utils/validation/schamas';
-import { AntInput } from '../../../utils/components/form-field';
+import { SignInSchema } from 'utils/validation/schamas';
+import { AntInput } from 'utils/components/form-field';
+import { signIn } from '../../actions';
 
 const styles = ({
   form: {

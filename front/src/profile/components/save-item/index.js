@@ -28,14 +28,12 @@ const SaveItem = () => {
         type='text'
         label='Title'
         prefix={<Icon type="book" />}
-        hasFeedback
       />
       <Field
         component={AntTextArea}
         name='text'
         type='text'
         label='Text'
-        hasFeedback
       />
 
       <div className="submit-container">
