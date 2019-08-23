@@ -22,7 +22,7 @@ const Root = () => {
             <PrivateRoute path='/profile' component={Profile}/>
             <PublicRoute path='/login' component={SignIn}/>
             <PublicRoute path='/registration' component={SignUp}/>
-            <Redirect exact from='/' to='login' />
+            <Redirect to='/profile' />
           </Switch>
         </Router>
       </Content>

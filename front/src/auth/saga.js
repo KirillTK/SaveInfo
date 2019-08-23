@@ -56,6 +56,6 @@ export default function* authRootSaga() {
     takeEvery(LOGOUT, SIGN_OUT_SAGA),
     takeEvery(GET_USER, GET_USER_SAGA),
     takeEvery(SIGN_UP, SIGN_UP_SAGA),
-    takeEvery(CHECK_AUTHENTICATION, CHECK_AUTHENTICATION_SAGA),
+    GET_USER_SAGA(),
   ]);
 }
