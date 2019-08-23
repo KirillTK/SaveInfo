@@ -2,8 +2,8 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const configuration = require('../configuration/configuration');
 const cookieSession = require('cookie-session');
+const configuration = require('../configuration/configuration');
 const passport = require('./auth/passport');
 
 const app = express();
