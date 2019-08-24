@@ -36,7 +36,13 @@ export function* SIGN_UP_SAGA({ payload }) {
 }
 
 export function* SIGN_OUT_SAGA() {
-
+  try {
+    yield call(auth.logout);
+    yield put(setUser(null));
+    yield put(navigate('/login'));
+  } catch (error) {
+    console.log({error});
+  }
 }
 
 export default function* authRootSaga() {

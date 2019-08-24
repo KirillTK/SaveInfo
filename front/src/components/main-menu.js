@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
-import { Icon, Layout, Menu } from 'antd';
-import { withRouter } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { selectUser } from '../auth/selectors';
+import {Avatar, Dropdown, Menu, PageHeader} from 'antd';
+import {signOut} from 'auth/actions';
 
-const { Sider } = Layout;
+const styles= ({
+  headerContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0 24px',
+    minHeight: '60px',
+    maxHeight: '60px',
+  },
+  avatar: {
+    marginBottom: 10,
+  }
+});
 
 const MainMenu = () => {
-  const [isCollapsed, setCollapse] = useState(true);
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
-  return (user ? (<Sider collapsible collapsed={isCollapsed} onCollapse={() => setCollapse(!isCollapsed)} theme='light'>
-    <div className="username"/>
-    <Menu defaultSelectedKeys={['1']} mode="inline">
-      <Menu.Item key="1">
-        <Icon type="history"/>
-        <span>History</span>
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Icon type="pie-chart"/>
-        <span>Option 1</span>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Icon type="pie-chart"/>
-        <span>Option 1</span>
-      </Menu.Item>
-    </Menu>
-  </Sider>) : null);
+
+  const onSignOut = () => dispatch(signOut());
+
+  const renderMenu = () => (<Menu>
+    <Menu.Item key="1">Profile</Menu.Item>
+    <Menu.Item key="2" onClick={onSignOut}>Sign out</Menu.Item>
+  </Menu>);
+
+  return (<PageHeader title='Save Info' style={styles.headerContainer}>
+    {user && <Dropdown overlay={renderMenu()}>
+      <Avatar shape="square" size="large" icon="user" style={styles.avatar}>
+      </Avatar>
+    </Dropdown>}
+  </PageHeader>);
 };
 
-export default withRouter(MainMenu);
+export default MainMenu;
