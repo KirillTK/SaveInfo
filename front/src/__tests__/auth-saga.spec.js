@@ -3,25 +3,31 @@ import Auth from 'auth/services/auth';
 import { runSaga } from '@redux-saga/core';
 import { put } from '@redux-saga/core/effects';
 import { setUser } from 'auth/actions';
+import {getUserSuccess, logInFailed, logInSuccess} from './__mocks__';
 
 
 describe('Test Auth Saga', () => {
-
-
   it('should check if sign in success finish and save user to store', async () => {
     const response = { data: { user: 'email@email.com' } };
-    Auth.logIn = jest.fn(() => Promise.resolve(response));
+    Auth.logIn = logInSuccess;
     const generator = SIGN_IN_SAGA({ email: 'test@mail.com' });
     generator.next(response).value;
 
     expect(generator.next(response).value).toEqual(put(setUser({ user: response.data.user })));
   });
 
+  it('should check if log in failed and ', () => {
+    const generator = SIGN_IN_SAGA({ email: 'test@mail.com' });
+    Auth.logIn = logInFailed;
+    generator.next(false).value;
+
+    expect(generator.next(false).value).toEqual({message: 'Incorrect details'});
+  });
 
   it('should check if get user saga put in store user info', async () => {
     const dispatchedActions = [];
     const expectedResponse = { email: 'test@gmail.com' };
-    Auth.getUser = jest.fn(() => Promise.resolve({ data: expectedResponse }));
+    Auth.getUser = getUserSuccess;
     const fakeStore = {
       dispatch: action => dispatchedActions.push(action),
     };
