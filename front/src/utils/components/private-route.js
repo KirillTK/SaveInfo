@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../../auth/selectors';
-import { checkAuth } from '../../auth/actions';
 
 const PrivateRoute = props => {
   const { location, component: Component, ...otherProps } = props;
-  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
-  useEffect(()=> {
-    dispatch(checkAuth());
-  }, []);
 
   return user ? (
     <Component {...otherProps} />

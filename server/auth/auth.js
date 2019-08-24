@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
         return res.status(400).send(err);
       }
       if (passportUser) {
-        req.logIn(passportUser, () => res.json({}));
+        req.logIn(passportUser, () => res.json(passportUser));
       }
     })(req, res, next);
   });
@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
         return res.status(409).send(err);
       }
       if (passportUser) {
-        res.send({});
+        res.send(passportUser);
       }
     })(req, res, next);
   });

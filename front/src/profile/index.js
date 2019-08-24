@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getUser } from '../auth/actions';
+import React from 'react';
+import { Layout} from 'antd';
+import SaveItem from './components/save-item';
 
+
+const styles = ({
+  container: {
+    backgroundColor: 'white',
+    padding: '15px',
+    margin: '15px',
+  }
+});
 
 const Profile = () => {
-  const dispatch = useDispatch();
-
-  useEffect(()=> {
-    dispatch(getUser());
-  },[dispatch])
 
   return (
-    <div/>
+    <Layout style={styles.container}>
+      <SaveItem/>
+    </Layout>
   );
 };
 

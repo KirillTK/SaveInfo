@@ -1,41 +1,31 @@
-import { all, takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { push as navigate } from 'connected-react-router';
-import { CHECK_AUTHENTICATION, GET_USER, LOGOUT, SIGN_IN, SIGN_UP } from './const';
+import { GET_USER, LOGOUT, SIGN_IN, SIGN_UP } from './const';
 import auth from './services/auth';
 import { setUser } from './actions';
-import { selectUser } from './selectors';
+import {setError} from 'message/actions';
+import {selectUser} from 'auth/selectors';
 
-function* GET_USER_SAGA() {
+export function* GET_USER_SAGA() {
   try {
     const user = yield call(auth.getUser);
     yield put(setUser(user.data));
   } catch (error) {
-    console.log('error', error.message);
+    yield put(setError(error.response.statusText));
   }
 }
 
-function* CHECK_AUTHENTICATION_SAGA() {
+export function* SIGN_IN_SAGA({ payload }) {
   try {
-    const user = yield select(selectUser);
-    if (!user) {
-      yield* GET_USER_SAGA();
-    }
-  } catch (error) {
-    console.log('error');
-  }
-}
-
-function* SIGN_IN_SAGA({ payload }) {
-  try {
-    yield call(auth.logIn, payload);
-    yield* GET_USER_SAGA();
+    const user = yield call(auth.logIn, payload);
+    yield put(setUser(user.data));
     yield put(navigate('/profile'));
   } catch (error) {
-    console.log('error', error);
+    yield put(setError(error.response.statusText));
   }
 }
 
-function* SIGN_UP_SAGA({ payload }) {
+export function* SIGN_UP_SAGA({ payload }) {
   try {
     yield call(auth.signUp, payload);
     yield* SIGN_IN_SAGA({ payload });
@@ -46,8 +36,14 @@ function* SIGN_UP_SAGA({ payload }) {
   }
 }
 
-function* SIGN_OUT_SAGA() {
-
+export function* SIGN_OUT_SAGA() {
+  try {
+    yield call(auth.logout);
+    yield put(setUser(null));
+    yield put(navigate('/login'));
+  } catch (error) {
+    console.log({error});
+  }
 }
 
 export default function* authRootSaga() {
@@ -56,6 +52,6 @@ export default function* authRootSaga() {
     takeEvery(LOGOUT, SIGN_OUT_SAGA),
     takeEvery(GET_USER, GET_USER_SAGA),
     takeEvery(SIGN_UP, SIGN_UP_SAGA),
-    takeEvery(CHECK_AUTHENTICATION, CHECK_AUTHENTICATION_SAGA),
+    GET_USER_SAGA(),
   ]);
 }
