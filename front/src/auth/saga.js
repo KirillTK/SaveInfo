@@ -4,6 +4,7 @@ import { GET_USER, LOGOUT, SIGN_IN, SIGN_UP } from './const';
 import auth from './services/auth';
 import { setUser } from './actions';
 import {setError} from 'message/actions';
+import {selectUser} from 'auth/selectors';
 
 export function* GET_USER_SAGA() {
   try {

@@ -1,10 +1,11 @@
-import { GET_USER_SAGA, SIGN_IN_SAGA } from 'auth/saga';
+import {GET_USER_SAGA, SIGN_IN_SAGA, SIGN_OUT_SAGA} from 'auth/saga';
 import Auth from 'auth/services/auth';
 import { runSaga } from '@redux-saga/core';
 import { put } from '@redux-saga/core/effects';
 import { setUser } from 'auth/actions';
-import {getUserSuccess, logInFailed, logInSuccess} from './__mocks__';
+import {getUserSuccess, logInFailed, logInSuccess, logOut} from './__mocks__';
 import {SET_ERROR} from 'message/actions';
+import {SET_USER} from 'auth/const';
 
 
 describe('Test Auth Saga', () => {
@@ -40,5 +41,21 @@ describe('Test Auth Saga', () => {
       payload: { email: 'test@gmail.com' },
     };
     expect(dispatchedActions).toContainEqual(expectedResult);
+  });
+
+  it('should check if location = login after logout and no user in store',  async () => {
+    const dispatchedActions = [];
+    Auth.logout = logOut;
+    const fakeStore = {
+      dispatch: action => dispatchedActions.push(action),
+    };
+
+    await runSaga(fakeStore, SIGN_OUT_SAGA).done;
+
+    const [setUserAction, locationAction, ...otherActions] = dispatchedActions;
+    expect(setUserAction.type).toBe(SET_USER);
+    expect(setUserAction.payload).toBe(null);
+    expect(locationAction.type).toBe('@@router/CALL_HISTORY_METHOD');
+    expect(locationAction.payload.args[0]).toBe('/login');
   });
 });

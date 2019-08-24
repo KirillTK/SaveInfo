@@ -9,3 +9,5 @@ export const logInFailed = jest.fn(() => Promise.reject({
 export const getUserSuccess = jest.fn(() => Promise.resolve({data: {email: 'test@gmail.com'}}));
 
 export const getUserFailed = jest.fn(() => Promise.resolve({}));
+
+export const logOut = jest.fn(() => Promise.resolve({}));
