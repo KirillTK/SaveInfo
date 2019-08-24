@@ -4,6 +4,7 @@ import { runSaga } from '@redux-saga/core';
 import { put } from '@redux-saga/core/effects';
 import { setUser } from 'auth/actions';
 import {getUserSuccess, logInFailed, logInSuccess} from './__mocks__';
+import {SET_ERROR} from 'message/actions';
 
 
 describe('Test Auth Saga', () => {
@@ -16,12 +17,14 @@ describe('Test Auth Saga', () => {
     expect(generator.next(response).value).toEqual(put(setUser({ user: response.data.user })));
   });
 
-  it('should check if log in failed and ', () => {
-    const generator = SIGN_IN_SAGA({ email: 'test@mail.com' });
+  it('should check if log in failed and ', async () => {
+    let dispatchedAction;
     Auth.logIn = logInFailed;
-    generator.next(false).value;
-
-    expect(generator.next(false).value).toEqual({message: 'Incorrect details'});
+    const fakeStore = {
+      dispatch: action => dispatchedAction = action,
+    };
+    await runSaga(fakeStore, SIGN_IN_SAGA, { email: 'test@mail.com' }).done;
+    expect(dispatchedAction.type).toBe(SET_ERROR);
   });
 
   it('should check if get user saga put in store user info', async () => {

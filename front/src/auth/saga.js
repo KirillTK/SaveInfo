@@ -10,9 +10,7 @@ export function* GET_USER_SAGA() {
     const user = yield call(auth.getUser);
     yield put(setUser(user.data));
   } catch (error) {
-
-    yield put(setError(error.message));
-    console.log('error', error.message);
+    yield put(setError(error.response.statusText));
   }
 }
 
@@ -22,8 +20,7 @@ export function* SIGN_IN_SAGA({ payload }) {
     yield put(setUser(user.data));
     yield put(navigate('/profile'));
   } catch (error) {
-    console.log(error);
-    yield put(setError(error.message));
+    yield put(setError(error.response.statusText));
   }
 }
 
