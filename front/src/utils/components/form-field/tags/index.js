@@ -1,21 +1,42 @@
-import React from 'react';
-import { Tag, Input, Icon, Form } from 'antd';
-import { TweenOneGroup } from 'rc-tween-one';
+import React, { useState } from 'react';
+import { Tag, Input, Icon, Form, Tooltip } from 'antd';
 
 
 const FormItem = Form.Item;
 
 const createAntTags = AntComponent => (props) => {
-  const { field, form, hasFeedback, onPressEnter, onBlur, ref, tags} = props;
+  const { field, form, hasFeedback, ref } = props;
   const touched = form.touched[field.name];
   const hasError = form.errors[field.name];
   const touchedError = hasError && touched;
 
-  const onChange = value => form.setFieldValue(field.name, value);
+  const [inputValue, setValue] = useState(null);
+  const [tags, setTags] = useState([]);
+  const [inputVisible, setVisible] = useState(false);
 
-  const showInput = () => {};
+  const onChange = event => {
+    const { target: { value } } = event;
+    setValue(value);
+  };
 
-  const inputVisible = true;
+  const saveTag = () => {
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      const newTags = [...tags, inputValue];
+      setTags(newTags);
+      form.setFieldValue(field.name, newTags);
+    }
+    setVisible(!inputVisible);
+  };
+
+  const handleClose = removedTag => {
+    const newTags = tags.filter(tag => tag !== removedTag);
+    setTags(newTags);
+    form.setFieldValue(field.name, newTags);
+  };
+
+  const showInput = () => saveTag();
+
+  const handleInputConfirm = () => saveTag();
 
   return (
     <div className="field-container">
@@ -26,23 +47,21 @@ const createAntTags = AntComponent => (props) => {
         help={touchedError ? hasError : false}
       >
         <div>
-          <div style={{ marginBottom: 16 }}>
-            <TweenOneGroup
-              enter={{
-                scale: 0.8,
-                opacity: 0,
-                type: 'from',
-                duration: 100,
-                onComplete: e => {
-                  e.target.style = '';
-                },
-              }}
-              leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-              appear={false}
-            >
-              {tags}
-            </TweenOneGroup>
-          </div>
+          {tags.map((tag, index) => {
+            const isLongTag = tag.length > 20;
+            const tagElem = (
+              <Tag key={tag} closable={index !== 0} onClose={() => handleClose(tag)}>
+                {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+              </Tag>
+            );
+            return isLongTag ? (
+              <Tooltip title={tag} key={tag}>
+                {tagElem}
+              </Tooltip>
+            ) : (
+              tagElem
+            );
+          })}
           {inputVisible && (
             <AntComponent
               ref={ref}
@@ -50,13 +69,13 @@ const createAntTags = AntComponent => (props) => {
               size="small"
               style={{ width: 78 }}
               onChange={onChange}
-              onBlur={onBlur}
-              onPressEnter={onPressEnter}
+              onBlur={handleInputConfirm}
+              onPressEnter={handleInputConfirm}
             />
           )}
           {!inputVisible && (
             <Tag onClick={showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
-              <Icon type="plus" /> New Tag
+              <Icon type="plus"/> New Tag
             </Tag>
           )}
         </div>

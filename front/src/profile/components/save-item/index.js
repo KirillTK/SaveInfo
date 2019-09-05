@@ -3,6 +3,7 @@ import { Form, Icon, Layout } from 'antd';
 import { Field, Formik } from 'formik';
 import AntUpload from '../../../utils/components/form-field/upload';
 import { AntInput, AntTextArea } from '../../../utils/components/form-field';
+import { AntTags } from 'utils/components/form-field/tags';
 
 const styles= ({
   container: {
@@ -21,6 +22,10 @@ const SaveItem = () => {
         name="files"
         listType='picture-card'
         hasFeedback
+      />
+      <Field
+        component={AntTags}
+        name='tags'
       />
       <Field
         component={AntInput}
