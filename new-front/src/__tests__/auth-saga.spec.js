@@ -3,7 +3,7 @@ import Auth from 'auth/services/auth';
 import { runSaga } from '@redux-saga/core';
 import { put } from '@redux-saga/core/effects';
 import { setUser } from 'auth/actions';
-import {getUserSuccess, logInFailed, logInSuccess, logOut} from './__mocks__';
+import {getUserSuccess, logInFailed, logInSuccess, logOut} from 'new-front/src/__tests__/__mocks__';
 import {SET_ERROR} from 'message/actions';
 import {SET_USER} from 'auth/const';
 
