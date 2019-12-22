@@ -9,6 +9,8 @@ import { history, reducer } from './rootReducer';
 import rootSaga from './rootSaga';
 import Root from './rootRouting';
 import './style.css';
+import 'typeface-roboto';
+
 
 const sagaMiddleware = createSagaMiddleware();
 const middleWares = [routerMiddleware(history), sagaMiddleware];
@@ -19,4 +21,3 @@ sagaMiddleware.run(rootSaga);
 
 
 ReactDOM.render(<Provider store={store}><Root/></Provider>, document.getElementById('root'));
-
