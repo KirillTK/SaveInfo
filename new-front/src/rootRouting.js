@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from "connected-react-router";
+import { history } from './rootReducer';
+import SignIn from './auth/sign-in';
 
 
 const Root = () => {
-
   return (
-    <Router>
+    <ConnectedRouter history={history}>
       <Switch>
-        <Router path='/' component={() => <div/>}/>
+        <Route path='/login' component={SignIn}/>
       </Switch>
-    </Router>
+    </ConnectedRouter>
   );
 };
 
