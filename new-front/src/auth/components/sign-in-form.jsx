@@ -3,6 +3,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import { Form, FormSpy } from 'react-final-form';
 import { Input } from '../../components/uncontrolled-inputs/Input';
 import { FieldControl } from '../../components/FieldControl';
+import { validateSignIn } from "../services/signInValidator";
 
 const useStyles = makeStyles({
   submitButton: {
@@ -30,7 +31,7 @@ export const SignInForm = () => {
   );
 
   return (
-    <Form onSubmit={onSubmit} render={renderForm}>
+    <Form onSubmit={onSubmit} render={renderForm} validate={validateSignIn}>
       <FormSpy subscription={{ values: true }} />
     </Form>
   );
