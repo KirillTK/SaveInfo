@@ -1,15 +1,36 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
-
-
+import PropTypes from 'prop-types';
 
 export const Input = props => {
-  const { input: { onChange } } = props;
+  const {
+    input: { onChange },
+  } = props;
 
   const handleChange = event => {
-    const { target : { value } } = event;
+    const {
+      target: { value },
+    } = event;
     onChange(value);
   };
 
-  return <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChange} {...props} />;
+  return (
+    <TextField
+      id="outlined-basic"
+      label="Outlined"
+      variant="outlined"
+      onChange={handleChange}
+      {...props}
+    />
+  );
+};
+
+Input.propTypes = {
+  input: PropTypes.shape({}),
+  meta: PropTypes.shape({}),
+};
+
+Input.defaultProps = {
+  input: {},
+  meta: {},
 };

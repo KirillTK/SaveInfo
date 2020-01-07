@@ -5,7 +5,10 @@ import { SignInForm } from './components/sign-in-form';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: 400,
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
