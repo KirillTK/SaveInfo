@@ -10,6 +10,7 @@ import rootSaga from './rootSaga';
 import Root from './rootRouting';
 import './style.css';
 import 'typeface-roboto';
+import { AppThemeProvider } from './theme/theme-provider';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -20,4 +21,4 @@ const store = createStore(reducer, composer(applyMiddleware(...middleWares)));
 sagaMiddleware.run(rootSaga);
 
 
-ReactDOM.render(<Provider store={store}><Root/></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><AppThemeProvider><Root/></AppThemeProvider></Provider>, document.getElementById('root'));

@@ -9,6 +9,7 @@ export function* GET_USER_SAGA() {
     const user = yield call(auth.getUser);
     yield put(setUser(user.data));
   } catch (error) {
+    console.log('error', error);
   }
 }
 
@@ -18,6 +19,7 @@ export function* SIGN_IN_SAGA({ payload }) {
     yield put(setUser(user.data));
     yield put(navigate('/profile'));
   } catch (error) {
+    console.log('error', error);
   }
 }
 
